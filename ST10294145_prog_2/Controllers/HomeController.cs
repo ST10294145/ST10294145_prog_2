@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ST10294145_prog_2.Models;
+using ST10294145_prog_2.Models.ST10294145_prog_2.Models;
 using System.Diagnostics;
 
 namespace ST10294145_prog_2.Controllers
@@ -28,5 +29,27 @@ namespace ST10294145_prog_2.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpPost]
+        public IActionResult Login(string username, string password)
+        {
+            var user = InMemoryData.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
+            if (user == null)
+            {
+                ViewBag.Message = "Invalid username or password";
+                return View("Index");
+            }
+
+            HttpContext.Session.SetString("UserRole", user.Role);
+            return RedirectToAction("Dashboard", "Claims");
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index");
+        }
+
+
     }
 }
