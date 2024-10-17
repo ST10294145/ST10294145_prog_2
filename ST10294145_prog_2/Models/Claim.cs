@@ -1,4 +1,5 @@
-﻿namespace ST10294145_prog_2.Models
+﻿using ST10294145_prog_2.Models;
+namespace ST10294145_prog_2.Models
 {
     public class Claim
     {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ST10294145_prog_2.Models;
 using ST10294145_prog_2.Models.ST10294145_prog_2.Models;
 
 namespace ST10294145_prog_2.Controllers
@@ -21,9 +22,13 @@ namespace ST10294145_prog_2.Controllers
         public IActionResult SubmitClaim() => View();
 
         [HttpPost]
-        public IActionResult SubmitClaim(Claim claim)
+        public IActionResult SubmitClaim(SubmitClaim SubmitClaim)
         {
-            claim.Id = InMemoryData.Claims.Count + 1;
+            var claim = new Claim
+            {
+                Id = InMemoryData.Claims.Count + 1,
+            };
+
             claim.LecturerName = "lecturer"; // Hardcoded for demo
             InMemoryData.Claims.Add(claim);
             return RedirectToAction("Dashboard");

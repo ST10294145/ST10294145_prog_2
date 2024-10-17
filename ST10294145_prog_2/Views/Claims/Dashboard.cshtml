@@ -1,5 +1,5 @@
 ﻿<h2>Claim Dashboard</h2>
-@if (HttpContext.Session.GetString("UserRole") == "Lecturer")
+@if (Context.Session.GetString("UserRole") == "Lecturer")
 {
     <a asp-action="SubmitClaim">Submit New Claim</a>
 }
@@ -12,7 +12,7 @@
         <p>Hourly Rate: @claim.HourlyRate</p>
         <p>Status: @claim.Status</p>
         <p>Document: <a href="/uploads/@claim.SupportingDocument">@claim.SupportingDocument</a></p>
-        @if (HttpContext.Session.GetString("UserRole") != "Lecturer" && claim.Status == "Pending")
+        @if (Context.Session.GetString("UserRole") != "Lecturer" && claim.Status == "Pending")
         {
             <form asp-action="UpdateClaimStatus" method="post">
                 <input type="hidden" name="claimId" value="@claim.Id" />
